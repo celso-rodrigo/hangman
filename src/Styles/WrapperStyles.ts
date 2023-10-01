@@ -6,6 +6,11 @@ const breakpoints = {
   lg: '1024px',
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const HangmanWrapper = styled.div`
   position: relative;
   width: 320px;
@@ -13,11 +18,21 @@ export const HangmanWrapper = styled.div`
 
     /* SM */
   @media (min-width: ${breakpoints.sm}) {
-      scale: 0.75;
+    scale: 0.75;
   }
 
   /* LG */
   @media (min-width: ${breakpoints.lg}) {
-      scale: 1;
+    scale: 1;
   }
 `;
+
+export const LettersWraper = styled.div`
+  display: flex;
+  align-content: start;
+  max-width: 40rem;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+`;
+
+export default Wrapper;

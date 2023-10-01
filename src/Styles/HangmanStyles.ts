@@ -19,7 +19,7 @@ export const HangmanTop = styled(Gallows)`
 `;
 
 export const HangmanPilar = styled(Gallows)`
-  height: 400px;
+  height: 350px;
   width: 10px;
   margin-left: 120px;
 `;
@@ -36,7 +36,7 @@ export const HangmanHead = styled.div`
   border: 10px solid ${(props) => props.theme.color};;
   position: absolute;
   top: 50px;
-  right: -30px;
+  right: -20px;
 `;
 
 export const HangmanBody = styled.div`
@@ -44,7 +44,7 @@ export const HangmanBody = styled.div`
   height: 110px;
   background-color: ${(props) => props.theme.color};
   position: absolute;
-  top: 110px;
+  top: 100px;
   right: 0;
 `;
 
@@ -53,7 +53,7 @@ const HangmanArm = styled.div`
   height: 10px;
   background-color: ${(props) => props.theme.color};
   position: absolute;
-  top: 140px;
+  top: 130px;
 `;
 
 export const HangmanLeftArm = styled(HangmanArm)`
@@ -73,7 +73,7 @@ const HangmanLeg = styled.div`
   height: 10px;
   background-color: ${(props) => props.theme.color};
   position: absolute;
-  top: 210px;
+  top: 200px;
 `;
 
 export const HangmanLeftLeg = styled(HangmanLeg)`
