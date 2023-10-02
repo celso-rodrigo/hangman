@@ -35,4 +35,9 @@ export const LettersWraper = styled.div`
   gap: 0.1rem;
 `;
 
+export const SecretWordWrapper = styled.div`
+  display: flex;
+  gap: .5rem;
+`;
+
 export default Wrapper;

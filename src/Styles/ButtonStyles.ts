@@ -11,4 +11,8 @@ export const LetterButton = styled.button`
   font-weight: 300;
   width: 4rem;
   height: 4rem;
+
+  &:disabled {
+    border-color: lightgray;
+  }
 `;
