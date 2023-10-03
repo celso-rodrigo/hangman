@@ -8,6 +8,7 @@ import SecretWordLetter from "./Components/SecretWordLetter";
 
 function App() {
   const [secretWord, setSecretWord] = useState<string>("");
+  const [guesses, setGuesses] = useState<string[]>([])
 
   // Get a random noun for the game
   function getRandomNoun():string {
@@ -15,18 +16,25 @@ function App() {
     return nounList[index];
   }
 
+  // Update player choosed letters
+  function handleGuesses(guess: string):void {
+    setGuesses((prev) => [...prev, guess.toLowerCase()])
+  }
+
   // Create a SecretWordLetter for each letter of the secretWord
-  function createSecreteLetters(): JSX.Element[] {
+  function createSecreteLetters(): JSX.Element[] {    
     const word = []
-    for (let i = 0; i < secretWord.length; i++) {
-      const letter = (
+    for (let index = 0; index < secretWord.length; index++) {
+      const letter = secretWord[index]
+      const letterComponent = (
         <SecretWordLetter
-          letter={secretWord[i]}
-          hidden={true}
-          key={`letter${i + 1}`}
+          letter={letter}
+          hidden={!guesses.includes(letter)}
+          capitalized={index === 0}
+          key={`letter${index + 1}`}
         />
       )
-      word.push(letter)
+      word.push(letterComponent)
     }
 
     return word
@@ -43,8 +51,7 @@ function App() {
       <LetterBtn
         key={letter}
         letter={letter}
-        disabled={false}
-        onClick={() => console.log("WIP")}
+        handleGuesses={handleGuesses}
       />
     );
 

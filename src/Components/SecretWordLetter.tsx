@@ -3,11 +3,14 @@ import { SecretText } from "../Styles/TextStyles";
 interface IProps {
   letter: string;
   hidden: boolean;
+  capitalized: boolean;
 }
 
-function SecretWordLetter({letter, hidden} : IProps) {
+function SecretWordLetter({letter, hidden, capitalized} : IProps) {
+  const formatedLetter = capitalized ? letter.toUpperCase() : letter 
+
   return (
-      <SecretText>{hidden ? "" : letter}</SecretText>
+      <SecretText>{hidden ? "" : formatedLetter}</SecretText>
   )
 }
 
