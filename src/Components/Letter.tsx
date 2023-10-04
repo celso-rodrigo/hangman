@@ -1,17 +1,21 @@
 import { ButtonHTMLAttributes, useState } from "react";
 import { LetterButton } from "../Styles/ButtonStyles";
+import gameState from "../enums/gameState";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   letter: string;
   handleGuesses: (guess: string) => void;
+  currGameState: gameState;
 }
 
-function Letter({letter, handleGuesses}: IProps) {
+function Letter({letter, handleGuesses, currGameState}: IProps) {
   const [disabled, setDisabled] = useState<boolean>(false)
 
   function handleClick(): void {
-    setDisabled(true)
-    handleGuesses(letter)
+    if (currGameState === gameState.inGame) {
+      setDisabled(true)
+      handleGuesses(letter)
+    }
   }
 
   return (

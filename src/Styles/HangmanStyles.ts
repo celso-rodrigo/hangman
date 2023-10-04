@@ -8,7 +8,6 @@ export const HangmanRope = styled(Gallows)`
   height: 50px;
   width: 10px;
   position: absolute;
-  top: 0;
   right: 0;
 `;
 

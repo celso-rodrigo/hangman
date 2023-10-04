@@ -5,10 +5,16 @@ import Wrapper, { LettersWraper, SecretWordWrapper } from "./Styles/WrapperStyle
 import nounList from "./data/noounList";
 import { useEffect, useState } from "react";
 import SecretWordLetter from "./Components/SecretWordLetter";
+import gameState from "./enums/gameState";
+
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const INITIAL_LIVES = 6;
 
 function App() {
   const [secretWord, setSecretWord] = useState<string>("");
   const [guesses, setGuesses] = useState<string[]>([])
+  const [playerLives, setPlayerLives] = useState<number>(INITIAL_LIVES)
+  const [currGameState, setCurrGameState] = useState<gameState>(gameState.inGame)
 
   // Get a random noun for the game
   function getRandomNoun():string {
@@ -16,9 +22,13 @@ function App() {
     return nounList[index];
   }
 
-  // Update player choosed letters
+  // Update player guesses and lives
   function handleGuesses(guess: string):void {
-    setGuesses((prev) => [...prev, guess.toLowerCase()])
+    const lowerCaseGuess = guess.toLowerCase()
+    setGuesses((prev) => [...prev, lowerCaseGuess])
+    
+    const wrongGuess = secretWord.indexOf(lowerCaseGuess) === -1
+    if (wrongGuess) setPlayerLives((prev) => prev - 1)
   }
 
   // Create a SecretWordLetter for each letter of the secretWord
@@ -42,14 +52,14 @@ function App() {
 
   // Create a LetterButton for each letter on the alphabet
   function createLetterButtons(): JSX.Element[] {
-  const alphabet = 'QWERTYUIOPASDFGHJKLZXCVBNM'
   const buttons = []
 
-  for (let i = 0; i < alphabet.length; i++) {
-    const letter = alphabet[i];
+  for (let i = 0; i < ALPHABET.length; i++) {
+    const letter = ALPHABET[i];
     const button = (
       <LetterBtn
         key={letter}
+        currGameState={currGameState}
         letter={letter}
         handleGuesses={handleGuesses}
       />
@@ -61,17 +71,22 @@ function App() {
     return buttons
   }
 
-  const letterButtons = createLetterButtons()
-  const secretWordLetters = createSecreteLetters()
+  useEffect(() => {
+    const randomSecretWord = getRandomNoun()
+    setSecretWord(randomSecretWord)
+  }, [])
 
   useEffect(() => {
-    setSecretWord(getRandomNoun())
-  }, [])
+    if (playerLives <= 0) setCurrGameState(gameState.gameLost)
+  }, [playerLives])
+
+  const letterButtons = createLetterButtons()
+  const secretWordLetters = createSecreteLetters()
 
   return (
     <ThemeProvider theme={{color: 'black'}}>
       <Wrapper>
-        <Hangman />
+        <Hangman playerLives={playerLives} />
 
         <LettersWraper>
           {letterButtons}
