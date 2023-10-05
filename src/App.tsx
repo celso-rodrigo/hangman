@@ -14,7 +14,7 @@ function App() {
   const [secretWord, setSecretWord] = useState<string>("");
   const [guesses, setGuesses] = useState<string[]>([])
   const [playerLives, setPlayerLives] = useState<number>(INITIAL_LIVES)
-  const [currGameState, setCurrGameState] = useState<gameState>(gameState.inGame)
+  const [currGameState, setCurrGameState] = useState<gameState>(gameState.loading)
 
   // Get a random noun for the game
   function getRandomNoun():string {
@@ -22,13 +22,22 @@ function App() {
     return nounList[index];
   }
 
+  // Trigger game won when there's no correct guess left
+  function handleCorrectGuess(guessArray: string[]):void {
+    const correctGuesses = secretWord.split("")
+    const gameWon = correctGuesses.every((letter) => guessArray.indexOf(letter) !== -1)
+    if (gameWon) setCurrGameState(gameState.gameWon)
+  }
+
   // Update player guesses and lives
   function handleGuesses(guess: string):void {
     const lowerCaseGuess = guess.toLowerCase()
-    setGuesses((prev) => [...prev, lowerCaseGuess])
+    const updatedGuesses = [...guesses, lowerCaseGuess]
+    setGuesses(updatedGuesses)
     
     const wrongGuess = secretWord.indexOf(lowerCaseGuess) === -1
-    if (wrongGuess) setPlayerLives((prev) => prev - 1)
+    // if (wrongGuess) setPlayerLives((prev) => prev - 1)
+    wrongGuess ? setPlayerLives((prev) => prev - 1) : handleCorrectGuess(updatedGuesses)
   }
 
   // Create a SecretWordLetter for each letter of the secretWord
@@ -74,6 +83,7 @@ function App() {
   useEffect(() => {
     const randomSecretWord = getRandomNoun()
     setSecretWord(randomSecretWord)
+    setCurrGameState(gameState.inGame)
   }, [])
 
   useEffect(() => {

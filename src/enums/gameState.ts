@@ -1,7 +1,8 @@
 enum gameState {
-  inGame = 0,
-  gameLost = 1,
-  gameWon = 2,
+  loading = 0,
+  inGame = 1,
+  gameLost = 2,
+  gameWon = 3,
 }
 
 export default gameState
