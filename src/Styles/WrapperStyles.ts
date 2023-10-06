@@ -40,4 +40,21 @@ export const SecretWordWrapper = styled.div`
   gap: .5rem;
 `;
 
+export const EndGameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 25vw;
+  height: 20rem;
+  padding: 2rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+  background-color: white;
+`;
+
 export default Wrapper;

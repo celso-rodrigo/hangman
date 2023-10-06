@@ -6,6 +6,7 @@ import nounList from "./data/noounList";
 import { useEffect, useState } from "react";
 import SecretWordLetter from "./Components/SecretWordLetter";
 import gameState from "./enums/gameState";
+import EndGamePopup from "./Components/EndGamePopup";
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const INITIAL_LIVES = 6;
@@ -92,6 +93,7 @@ function App() {
 
   const letterButtons = createLetterButtons()
   const secretWordLetters = createSecreteLetters()
+  const endGame = currGameState === gameState.gameLost || currGameState === gameState.gameWon
 
   return (
     <ThemeProvider theme={{color: 'black'}}>
@@ -105,6 +107,14 @@ function App() {
         <SecretWordWrapper>
           {secretWordLetters}
         </SecretWordWrapper>
+
+        {endGame && (
+          <EndGamePopup
+            gameResult={currGameState}
+            restartGame={() => console.log("wip")}
+            secretWord={secretWord}
+          />
+        )}
       </Wrapper>
     </ThemeProvider>
   );

@@ -16,3 +16,11 @@ export const LetterButton = styled.button`
     border-color: lightgray;
   }
 `;
+
+export const ReplayBtn = styled.button`
+  background-color: transparent;
+  font-size: 2em;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  margin-top: auto;
+`;
