@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, useState } from "react";
+import { ButtonHTMLAttributes, useEffect, useState } from "react";
 import { LetterButton } from "../Styles/ButtonStyles";
 import gameState from "../enums/gameState";
 
@@ -17,6 +17,11 @@ function Letter({letter, handleGuesses, currGameState}: IProps) {
       handleGuesses(letter)
     }
   }
+
+  // Enable all buttons every time the curr game state goes back to the in game value
+  useEffect(() => {
+    if (currGameState === gameState.inGame) setDisabled(false)
+  }, [currGameState])
 
   return (
     <LetterButton

@@ -81,11 +81,17 @@ function App() {
     return buttons
   }
 
-  useEffect(() => {
+  function startGame():void {
     const randomSecretWord = getRandomNoun()
     setSecretWord(randomSecretWord)
     setCurrGameState(gameState.inGame)
-  }, [])
+  }
+
+  function restartGame():void {
+    setCurrGameState(gameState.loading)
+    setPlayerLives(INITIAL_LIVES)
+    setGuesses([])
+  }
 
   useEffect(() => {
     if (playerLives <= 0) setCurrGameState(gameState.gameLost)
@@ -94,6 +100,8 @@ function App() {
   const letterButtons = createLetterButtons()
   const secretWordLetters = createSecreteLetters()
   const endGame = currGameState === gameState.gameLost || currGameState === gameState.gameWon
+
+  if (currGameState === gameState.loading) startGame()
 
   return (
     <ThemeProvider theme={{color: 'black'}}>
@@ -111,7 +119,7 @@ function App() {
         {endGame && (
           <EndGamePopup
             gameResult={currGameState}
-            restartGame={() => console.log("wip")}
+            restartGame={restartGame}
             secretWord={secretWord}
           />
         )}
