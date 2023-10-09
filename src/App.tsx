@@ -7,11 +7,14 @@ import { useEffect, useState } from "react";
 import SecretWordLetter from "./Components/SecretWordLetter";
 import gameState from "./enums/gameState";
 import EndGamePopup from "./Components/EndGamePopup";
+import colors from "./Styles/colors";
+import DarkModeButton from "./Components/DarkModeButton";
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const INITIAL_LIVES = 6;
 
 function App() {
+  const [darkMode, setDarkMode] = useState<boolean>(false)
   const [secretWord, setSecretWord] = useState<string>("");
   const [guesses, setGuesses] = useState<string[]>([])
   const [playerLives, setPlayerLives] = useState<number>(INITIAL_LIVES)
@@ -100,12 +103,17 @@ function App() {
   const letterButtons = createLetterButtons()
   const secretWordLetters = createSecreteLetters()
   const endGame = currGameState === gameState.gameLost || currGameState === gameState.gameWon
+  const colorTheme = darkMode ? colors.white : colors.black
 
   if (currGameState === gameState.loading) startGame()
 
   return (
-    <ThemeProvider theme={{color: 'black'}}>
+    <ThemeProvider theme={{color: colorTheme}}>
       <Wrapper>
+        <DarkModeButton
+          onClick={() => setDarkMode((prev) => !prev)}
+          colorTheme={colorTheme}
+        />
         <Hangman playerLives={playerLives} />
 
         <LettersWraper>

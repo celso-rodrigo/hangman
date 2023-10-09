@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import colors from "./colors";
 
 const breakpoints = {
   sm: '640px',
@@ -9,6 +10,8 @@ const breakpoints = {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  background-color: ${(props) => props.theme.color === colors.white ? colors.black : colors.white};
 `;
 
 export const HangmanWrapper = styled.div`
@@ -32,7 +35,7 @@ export const LettersWraper = styled.div`
   align-content: start;
   max-width: 40rem;
   flex-wrap: wrap;
-  gap: 0.1rem;
+  gap: 0.2rem;
 `;
 
 export const SecretWordWrapper = styled.div`
@@ -41,6 +44,8 @@ export const SecretWordWrapper = styled.div`
 `;
 
 export const EndGameWrapper = styled.div`
+  color: ${(props) => props.theme.color === colors.white ? colors.black : colors.white};
+  background-color: ${(props) => props.theme.color === colors.white ? colors.white : colors.black};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +59,6 @@ export const EndGameWrapper = styled.div`
   padding: 2rem;
   border: 2px solid black;
   border-radius: 1rem;
-  background-color: white;
 `;
 
 export default Wrapper;
