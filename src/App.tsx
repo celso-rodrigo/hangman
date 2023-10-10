@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import Hangman from "./Components/Hangman";
 import LetterBtn from "./Components/Letter"
-import Wrapper, { LettersWraper, SecretWordWrapper } from "./Styles/WrapperStyles";
+import Wrapper, { SecretWrapper, LettersWraper, GameWrapper, SecretWordWrapper } from "./Styles/WrapperStyles";
 import nounList from "./data/noounList";
 import { useEffect, useState } from "react";
 import SecretWordLetter from "./Components/SecretWordLetter";
@@ -114,15 +114,19 @@ function App() {
           onClick={() => setDarkMode((prev) => !prev)}
           colorTheme={colorTheme}
         />
-        <Hangman playerLives={playerLives} />
 
-        <LettersWraper>
-          {letterButtons}
-        </LettersWraper>
-
-        <SecretWordWrapper>
-          {secretWordLetters}
-        </SecretWordWrapper>
+        <GameWrapper>
+          <Hangman playerLives={playerLives} />
+            
+          <SecretWrapper>
+            <SecretWordWrapper>
+              {secretWordLetters}
+            </SecretWordWrapper>
+            <LettersWraper>
+              {letterButtons}
+            </LettersWraper>
+          </SecretWrapper>
+        </GameWrapper>
 
         {endGame && (
           <EndGamePopup

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "./colors";
+import { breakpoints } from "./WrapperStyles";
 
 export const LetterButton = styled.button`
   display: flex;
@@ -31,6 +32,7 @@ export const ReplayBtn = styled.button`
 `;
 
 export const DarkModeBtn = styled.button`
+  margin: 0 auto 1rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,4 +41,11 @@ export const DarkModeBtn = styled.button`
   background-color: transparent;
   width: 50px;
   height: 50px;
+
+  /* md */
+  @media (min-width: ${breakpoints.md}) {
+    position: absolute;
+    right: 5rem;
+    top: 5rem;
+  }
 `;
