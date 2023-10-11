@@ -63,10 +63,22 @@ export const EndGameWrapper = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   min-width: 25vw;
-  height: 20rem;
-  padding: 2rem;
+  height: 28rem;
+  padding: 2rem 5rem;
+  text-align: center;
   border: 2px solid black;
   border-radius: 1rem;
+
+  /* SM */
+  @media (min-width: ${breakpoints.sm}) {
+    height: 25rem;
+    padding: 2rem 5rem;
+  }
+
+  /* MD */
+  @media (min-width: ${breakpoints.md}) {
+    height: 20rem;
+  }
 `;
 
 export const GameWrapper = styled.div`

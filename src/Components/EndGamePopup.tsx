@@ -1,4 +1,5 @@
 import { ReplayBtn } from "../Styles/ButtonStyles"
+import Text, { TitleOne } from "../Styles/TextStyles"
 import { EndGameWrapper } from "../Styles/WrapperStyles"
 import gameState from "../enums/gameState"
 
@@ -13,9 +14,9 @@ function EndGamePopup({gameResult, secretWord, restartGame}: IProps) {
 
   return (
     <EndGameWrapper>
-      <h1>{endGameMessage}</h1>
-      <h2>The secret word was</h2>
-      <h2>{secretWord.toUpperCase()}</h2>
+      <TitleOne>{endGameMessage}</TitleOne>
+      <Text>The secret word was:</Text>
+      <Text>{secretWord.toUpperCase()}</Text>
       <ReplayBtn 
         type="button"
         value=""
