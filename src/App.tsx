@@ -69,12 +69,15 @@ function App() {
 
   for (let i = 0; i < ALPHABET.length; i++) {
     const letter = ALPHABET[i];
+    const isDisabled = guesses.length > 0 && guesses.indexOf(letter.toLocaleLowerCase()) !== -1
+    
     const button = (
       <LetterBtn
         key={letter}
         currGameState={currGameState}
         letter={letter}
         handleGuesses={handleGuesses}
+        isDisabled={isDisabled}
       />
     );
 
@@ -99,6 +102,24 @@ function App() {
   useEffect(() => {
     if (playerLives <= 0) setCurrGameState(gameState.gameLost)
   }, [playerLives])
+
+  // Reads user keyboard input
+  useEffect(() => {
+    function handleKeyPressed(event: KeyboardEvent) {
+      const allowedKeys = /^[a-zA-Z]$/;
+      if (allowedKeys.test(event.key)) {
+        if (guesses.indexOf(event.key) === -1) handleGuesses(event.key);
+      }
+    }
+
+    // Add an event listener for the corresponding key
+    window.addEventListener("keydown", handleKeyPressed);
+
+    // Make sure to remove the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("keydown", handleKeyPressed);
+    };
+  });
 
   const letterButtons = createLetterButtons()
   const secretWordLetters = createSecreteLetters()

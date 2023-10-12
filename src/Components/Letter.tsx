@@ -6,22 +6,25 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   letter: string;
   handleGuesses: (guess: string) => void;
   currGameState: gameState;
+  isDisabled: boolean
 }
 
-function Letter({letter, handleGuesses, currGameState}: IProps) {
-  const [disabled, setDisabled] = useState<boolean>(false)
+function Letter({letter, handleGuesses, currGameState, isDisabled}: IProps) {
+  const [disabled, setDisabled] = useState<boolean>(isDisabled)
 
   function handleClick(): void {
-    if (currGameState === gameState.inGame) {
-      setDisabled(true)
-      handleGuesses(letter)
-    }
+    if (currGameState === gameState.inGame) handleGuesses(letter)
   }
 
   // Enable all buttons every time the curr game state goes back to the in game value
   useEffect(() => {
     if (currGameState === gameState.inGame) setDisabled(false)
   }, [currGameState])
+
+  // Update the button after guesses
+  useEffect(() => {
+    if (isDisabled) setDisabled(true)
+  }, [isDisabled])
 
   return (
     <LetterButton
