@@ -12,9 +12,15 @@ import DarkModeButton from "./Components/DarkModeButton";
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const INITIAL_LIVES = 6;
+const DARKMODE_STORAGE_KEY = "hangmanDarkMode"
+
+function loadSavedLightMode():boolean {
+  const darkmode = localStorage.getItem(DARKMODE_STORAGE_KEY)
+  return darkmode === null ? false : JSON.parse(darkmode)
+}
 
 function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(false)
+  const [darkMode, setDarkMode] = useState<boolean>(loadSavedLightMode())
   const [secretWord, setSecretWord] = useState<string>("");
   const [guesses, setGuesses] = useState<string[]>([])
   const [playerLives, setPlayerLives] = useState<number>(INITIAL_LIVES)
@@ -99,6 +105,12 @@ function App() {
     setGuesses([])
   }
 
+  function updateDarkMode():void {
+    const newMode = !darkMode
+    localStorage.setItem(DARKMODE_STORAGE_KEY, JSON.stringify(newMode))
+    setDarkMode(newMode)
+  }
+
   useEffect(() => {
     if (playerLives <= 0) setCurrGameState(gameState.gameLost)
   }, [playerLives])
@@ -132,7 +144,7 @@ function App() {
     <ThemeProvider theme={{color: colorTheme}}>
       <Wrapper>
         <DarkModeButton
-          onClick={() => setDarkMode((prev) => !prev)}
+          onClick={updateDarkMode}
           colorTheme={colorTheme}
         />
 
