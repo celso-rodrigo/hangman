@@ -3,8 +3,8 @@
 <br/>
 
 <div align="center">
-<img height="300" src="https://github.com/hangman/html5-quiz/blob/main/public/mobilePreview.png" />
-<img height="300" src="https://github.com/hangman/html5-quiz/blob/main/public/notebookPreview.png" />
+<img height="300" src="https://github.com/celso-rodrigo/hangman/blob/main/public/mobilePreview.png" />
+<img height="300" src="https://github.com/celso-rodrigo/hangman/blob/main/public/notebookPreview.png" />
 </div>
 
 <br/>
